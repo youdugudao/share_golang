@@ -66,4 +66,5 @@ hello world
 	- func
 	- struct
 	- `interface`
+	
 除了特殊标记的slice和interface设计和别的语言不同， 其他基本没什么区别
