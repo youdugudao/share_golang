@@ -43,8 +43,14 @@ func main() {
 	fmt.Println(t)
 }
 ```
-运行 `go run test1.go`
+运行
 ```
-➜  script_cli git:(master) ✗ go run time.go 
+>go run test1.go 
+hello world
+```
+先编译，后运行
+```
+>go build test1.go
+>./test1
 hello world
 ```
