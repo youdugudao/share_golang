@@ -18,7 +18,7 @@ Go的调度器内部有三个重要的结构：M，G，P
 
 我们来看一个示例：
 
-![MGP结构图](/assets/MPG1.png)
+![MGP结构图](/assets/MPG1.png) 
 
 - 图中看，有2个物理线程M，每一个M都拥有一个context（P），每一个也都有一个正在运行的goroutine。
 - P的数量可以通过GOMAXPROCS()来设置，它其实也就代表了真正的并发度，即有多少个goroutine可以同时运行。
