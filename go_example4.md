@@ -30,3 +30,13 @@ Go的调度器内部有三个重要的结构：M，G，P
 图中看到，当一个OS线程M0陷入阻塞时，P转而在OS线程M1上运行。调度器保证有足够的线程来运行所以的context P。
 
 ![MGP结构图](/assets/MPG2.png) 
+- 图中的M1可能是被创建，或者从线程缓存中取出。
+- 当MO返回时，它必须尝试取得一个context P来运行goroutine，一般情况下，它会从其他的OS线程那里steal偷一个context过来，
+- 如果没有偷到的话，它就把goroutine放在一个global runqueue里，然后自己就去睡大觉了（放入线程缓存里）。
+- Contexts们也会周期性的检查global runqueue，否则global runqueue上的goroutine永远无法执行。
+
+![MGP结构图](/assets/MPG3.png) 
+
+- 另一种情况是P所分配的任务G很快就执行完了（分配不均），这就导致了一个上下文P闲着没事儿干而系统却任然忙碌。
+- 但是如果global runqueue没有任务G了，那么P就不得不从其他的上下文P那里拿一些G来执行。
+- 一般来说，如果上下文P从其他的上下文P那里要偷一个任务的话，一般就‘偷’run queue的一半，这就确保了每个OS线程都能充分的使用。
