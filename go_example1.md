@@ -44,3 +44,7 @@ func main() {
 }
 ```
 运行 `go run test1.go`
+```
+➜  script_cli git:(master) ✗ go run time.go 
+hello world
+```
