@@ -14,5 +14,5 @@ Go的调度器内部有三个重要的结构：M，G，P
 * G:代表一个goroutine，它有自己的栈，instruction pointer和其他信息（正在等待的channel等等），用于调度。
 * P:代表调度的上下文，可以把它看做一个局部的调度器，使go代码在一个线程上跑，它是实现从N:1到N:M映射的关键。
 
-![](/assets/MPG.png)
+![MGP结构图](/assets/MPG.png)
 
