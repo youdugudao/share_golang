@@ -27,3 +27,20 @@ gopath 即为工作目录，运行`ls $GOPATH`便会发现有三个目录
 - src 即为存放我们的代码的地方
 
 ## 我们正式写一个小的go程序
+文件名: `test1.go`
+```go
+package main
+
+import (
+	"time"
+	"fmt"
+)
+
+func main() {
+	var a int
+	a = 90
+	t := time.Duration(a) * time.Second
+	fmt.Println(t)
+}
+```
+运行 `go run test1.go`
