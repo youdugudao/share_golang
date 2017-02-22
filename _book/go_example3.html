@@ -1,0 +1,312 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <title>一个简单的go并发程序 · GitBook</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.0">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="go_example4.html" />
+    
+    
+    <link rel="prev" href="go_example2.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="go_example1.html">
+            
+                <a href="go_example1.html">
+            
+                    
+                    golang简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="go_example2.html">
+            
+                <a href="go_example2.html">
+            
+                    
+                    一个简单的go程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="go_example3.html">
+            
+                <a href="go_example3.html">
+            
+                    
+                    一个简单的go并发程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="go_example4.html">
+            
+                <a href="go_example4.html">
+            
+                    
+                    go协程原理简析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >一个简单的go并发程序</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="goroutine&#x534F;&#x7A0B;">goroutine&#x534F;&#x7A0B;</h1><h2 id="&#x534F;&#x7A0B;&#x7684;&#x7279;&#x70B9;&#xFF1A;">&#x534F;&#x7A0B;&#x7684;&#x7279;&#x70B9;&#xFF1A;</h2><blockquote><ul><li>Goroutine&#x662F;Go&#x5E76;&#x884C;&#x8BBE;&#x8BA1;&#x7684;&#x6838;&#x5FC3;&#x3002;goroutine&#x8BF4;&#x5230;&#x5E95;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x7EBF;&#x7A0B;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x6BD4;&#x7EBF;&#x7A0B;&#x66F4;&#x5C0F;&#xFF0C;&#x5341;&#x51E0;&#x4E2A;goroutine&#x53EF;&#x80FD;&#x4F53;&#x73B0;&#x5728;&#x5E95;&#x5C42;&#x5C31;&#x662F;&#x4E94;&#x516D;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;Go&#x8BED;&#x8A00;&#x5185;&#x90E8;&#x5E2E;&#x4F60;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x4E9B;goroutine&#x4E4B;&#x95F4;&#x7684;&#x5185;&#x5B58;&#x5171;&#x4EAB;&#x3002;&#x6267;&#x884C;goroutine&#x53EA;&#x9700;&#x6781;&#x5C11;&#x7684;&#x6808;&#x5185;&#x5B58;(&#x5927;&#x6982;&#x662F;4~5KB)&#xFF0C;&#x5F53;&#x7136;&#x4F1A;&#x6839;&#x636E;&#x76F8;&#x5E94;&#x7684;&#x6570;&#x636E;&#x4F38;&#x7F29;&#x3002;&#x4E5F;&#x6B63;&#x56E0;&#x4E3A;&#x5982;&#x6B64;&#xFF0C;&#x53EF;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x6210;&#x5343;&#x4E0A;&#x4E07;&#x4E2A;&#x5E76;&#x53D1;&#x4EFB;&#x52A1;&#x3002;goroutine&#x6BD4;thread&#x66F4;&#x6613;&#x7528;&#x3001;&#x66F4;&#x9AD8;&#x6548;&#x3001;&#x66F4;&#x8F7B;&#x4FBF;&#x3002;
+</li>
+<li>Goroutine&#x5949;&#x884C;&#x901A;&#x8FC7;&#x901A;&#x8BAF;&#x6765;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x6765;&#x901A;&#x8BAF;
+</li></ul>
+</blockquote><h2 id="&#x5E76;&#x884C;&#x529F;&#x80FD;">&#x5E76;&#x884C;&#x529F;&#x80FD;</h2><pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    <span class="hljs-keyword">go</span> run(<span class="hljs-string">&quot;zhangsan&quot;</span>)
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++ {
+        fmt.Println(<span class="hljs-string">&quot;lisi&quot;</span>, i)
+    }
+    <span class="hljs-comment">// &#x5982;&#x679C;&#x6B64;&#x65F6;&#x4E0D;sleep1&#x79D2;&#xFF0C;&#x7A0B;&#x5E8F;&#x6267;&#x884C;&#x5230;&#x8FD9;main&#x51FD;&#x6570;&#x5C31;&#x7ED3;&#x675F;&#x4E86;&#xFF0C;run&#x51FD;&#x6570;&#x53EF;&#x80FD;&#x8FD8;&#x6CA1;&#x6709;&#x6267;&#x884C;&#x5B8C;&#x6BD5;</span>
+    time.Sleep(time.Second * <span class="hljs-number">1</span>)
+}
+
+<span class="hljs-keyword">func</span> run(str <span class="hljs-keyword">string</span>) {
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++ {
+        fmt.Println(str, i)
+    }
+}</code></pre>
+<p>&#x5F53;&#x7136;&#xFF0C; &#x6B64;&#x65F6;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;go&#x5E76;&#x53D1;&#x65F6;&#x5229;&#x7528;&#x7684;cpu&#x6838;&#x6570;&#x3002;
+&#x8FD9;&#x4FBF;&#x662F;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;go&#x5E76;&#x53D1;&#x7A0B;&#x5E8F;&#xFF0C; &#x5F88;&#x7B80;&#x5355;&#xFF0C; &#x5229;&#x7528;<code>go</code>&#x5173;&#x952E;&#x5B57;&#x5373;&#x53EF;
+go&#x534F;&#x7A0B;&#x4E4B;&#x95F4;&#x5982;&#x679C;&#x8981;&#x5B9E;&#x73B0;&#x540C;&#x6B65;&#x673A;&#x5236;&#x53EA;&#x9700;&#x8981;<code>channel</code>&#x4FBF;&#x53EF;&#x89E3;&#x51B3;&#xFF0C;&#x54B1;&#x4EEC;&#x5148;&#x653E;&#x4E00;&#x653E;&#x3002;&#x5148;&#x6765;&#x770B;&#x770B;goroutine&#x7684;&#x8BBE;&#x8BA1;</p>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="go_example2.html" class="navigation navigation-prev " aria-label="Previous page: 一个简单的go程序">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="go_example4.html" class="navigation navigation-next " aria-label="Next page: go协程原理简析">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"一个简单的go并发程序","level":"1.4","depth":1,"next":{"title":"go协程原理简析","level":"1.5","depth":1,"path":"go_example4.md","ref":"go_example4.md","articles":[]},"previous":{"title":"一个简单的go程序","level":"1.3","depth":1,"path":"go_example2.md","ref":"go_example2.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"go_example3.md","mtime":"2017-02-22T13:55:47.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2017-02-22T14:43:42.276Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
