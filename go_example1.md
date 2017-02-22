@@ -20,3 +20,7 @@ GOGCCFLAGS="-fPIC -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmess
 CXX="clang++"
 CGO_ENABLED="1"
 ```
+gopath 即为工作目录，运行`ls $GOPATH`便会发现有三个目录
+- bin 存放可执行文件，都是系统编译好的可执行文件
+- pkg 
+- src 即为存放我们的代码的地方
