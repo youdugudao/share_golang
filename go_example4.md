@@ -16,3 +16,5 @@ Go的调度器内部有三个重要的结构：M，G，P
 
 ![MGP结构图](/assets/MPG.png)
 
+我们来看一个示例：
+![MGP结构图](/assets/MPG1.png)
