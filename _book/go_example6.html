@@ -1,0 +1,425 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <title>go协程的应用 - net · GitBook</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.0">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="go_example7.html" />
+    
+    
+    <link rel="prev" href="go_example5.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="go_example1.html">
+            
+                <a href="go_example1.html">
+            
+                    
+                    golang简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="go_example2.html">
+            
+                <a href="go_example2.html">
+            
+                    
+                    一个简单的go程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="go_example3.html">
+            
+                <a href="go_example3.html">
+            
+                    
+                    一个简单的go并发程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="go_example4.html">
+            
+                <a href="go_example4.html">
+            
+                    
+                    go协程原理简析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="go_example5.html">
+            
+                <a href="go_example5.html">
+            
+                    
+                    go协程通讯
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.7" data-path="go_example6.html">
+            
+                <a href="go_example6.html">
+            
+                    
+                    go协程的应用 - net
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="go_example7.html">
+            
+                <a href="go_example7.html">
+            
+                    
+                    go结构体，接口设计
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="go_example8.html">
+            
+                <a href="go_example8.html">
+            
+                    
+                    抛砖引玉
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >go协程的应用 - net</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="go&#x534F;&#x7A0B;&#x7684;&#x5E94;&#x7528;---net">go&#x534F;&#x7A0B;&#x7684;&#x5E94;&#x7528; - net</h1><h3 id="golang&#x7684;&#x6807;&#x51C6;&#x5305;">golang&#x7684;&#x6807;&#x51C6;&#x5305;</h3><p>golang&#x7684;&#x6807;&#x51C6;&#x5305;&#x7684;&#x4EE3;&#x7801;&#x8BBE;&#x8BA1;&#x7684;&#x5F88;&#x4E0D;&#x9519;&#xFF0C;golang&#x5BF9;&#x4E8E;&#x6807;&#x51C6;&#x5305;&#x7684;&#x5BA1;&#x6838;&#x8FD8;&#x662F;&#x633A;&#x597D;&#x7684;&#x3002;
+&#x5BF9;&#x4E8E;&#x5F00;&#x53D1; webapi golang&#x7684;&#x6807;&#x51C6;&#x5305;&#x5C31;&#x8DB3;&#x4EE5;&#x3002;&#x57FA;&#x672C;&#x4E0D;&#x9700;&#x8981;&#x4EC0;&#x4E48;&#x6846;&#x67B6;
+&#x63A8;&#x8350;github&#x7528;&#x6237;codegangsta&#x7684;gitbook&#x9879;&#x76EE;&#xFF1A;<a href="https://www.gitbook.com/book/codegangsta/building-web-apps-with-go/details" target="_blank">Building Web Apps with Go</a></p><h3 id="&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;-webapi-demo">&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684; webapi demo</h3><pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;net/http&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    http.HandleFunc(<span class="hljs-string">&quot;/markdown&quot;</span>, GenerateMarkdown)
+    http.HandleFunc(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-keyword">func</span>(rw http.ResponseWriter, r *http.Request) {
+        rw.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;hello world&quot;</span>))
+    })
+    http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, <span class="hljs-literal">nil</span>)
+}
+
+<span class="hljs-keyword">func</span> GenerateMarkdown(rw http.ResponseWriter, r *http.Request) {
+    rw.Write([]<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;markdown&quot;</span>))
+}</code></pre>
+<h3 id="&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x8FD0;&#x884C;&#x7684;&#x539F;&#x7406;">&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x8FD0;&#x884C;&#x7684;&#x539F;&#x7406;</h3><p>&#x9996;&#x5148;&#xFF0C; http&#x5305;HandleFunc&#x5728;&#x6E90;&#x7801;&#x4E2D;&#x662F;&#x8FD9;&#x6837;&#x5199;&#x7684;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x53EA;&#x8981;&#x662F;&#x5B9E;&#x73B0;&#x4E86;<code>func(ResponseWriter, *Request))</code>&#x7684;&#x51FD;&#x6570;&#x5373;&#x53EF;</p><pre><code class="lang-go"><span class="hljs-keyword">func</span> HandleFunc(pattern <span class="hljs-keyword">string</span>, handler <span class="hljs-keyword">func</span>(ResponseWriter, *Request)) {
+    DefaultServeMux.HandleFunc(pattern, handler)
+}</code></pre>
+<p>&#x7136;&#x540E;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E0B;http&#x5305;&#x7684;<code>ListenAndServe</code>&#x6E90;&#x7801;</p><pre><code class="lang-go"><span class="hljs-keyword">func</span> ListenAndServe(addr <span class="hljs-keyword">string</span>, handler Handler) error {
+    <span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;server</span>
+    server := &amp;Server{Addr: addr, Handler: handler}
+    <span class="hljs-comment">// &#x8C03;&#x7528;ListenAndServe&#x65B9;&#x6CD5;</span>
+    <span class="hljs-keyword">return</span> server.ListenAndServe()
+}</code></pre>
+<p>&#x5B9E;&#x9645;&#x4E0A;&#x6B64;&#x5904;&#x91CD;&#x70B9;&#x662F;&#x8C03;&#x7528;&#x4E86;server&#x7684;<code>ListenAndServe</code>&#x65B9;&#x6CD5;
+&#x6211;&#x4EEC;&#x987A;&#x85E4;&#x6478;&#x74DC;&#xFF0C;&#x770B;&#x4E00;&#x4E0B;ListenAndServe&#x6E90;&#x7801;&#xFF1A;</p><pre><code class="lang-go"><span class="hljs-keyword">func</span> (srv *Server) ListenAndServe() error {
+    addr := srv.Addr
+    <span class="hljs-keyword">if</span> addr == <span class="hljs-string">&quot;&quot;</span> {
+        addr = <span class="hljs-string">&quot;:http&quot;</span>
+    }
+    ln, err := net.Listen(<span class="hljs-string">&quot;tcp&quot;</span>, addr)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+    <span class="hljs-keyword">return</span> srv.Serve(tcpKeepAliveListener{ln.(*net.TCPListener)})
+}</code></pre>
+<p>&#x8FD9;&#x513F;&#x57FA;&#x672C;&#x5C31;&#x660E;&#x6653;&#x4E86;&#xFF0C;&#x5173;&#x952E;&#x662F;Server&#x7684;Serve&#x65B9;&#x6CD5;</p><pre><code class="lang-go"><span class="hljs-keyword">func</span> (srv *Server) Serve(l net.Listener) error {
+    <span class="hljs-keyword">defer</span> l.Close()
+    <span class="hljs-keyword">if</span> fn := testHookServerServe; fn != <span class="hljs-literal">nil</span> {
+        fn(srv, l)
+    }
+    <span class="hljs-keyword">var</span> tempDelay time.Duration <span class="hljs-comment">// how long to sleep on accept failure</span>
+
+    <span class="hljs-keyword">if</span> err := srv.setupHTTP2_Serve(); err != <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> err
+    }
+
+    baseCtx := context.Background()
+    ctx := context.WithValue(baseCtx, ServerContextKey, srv)
+    ctx = context.WithValue(ctx, LocalAddrContextKey, l.Addr())
+    <span class="hljs-keyword">for</span> {
+        rw, e := l.Accept()
+        <span class="hljs-keyword">if</span> e != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">if</span> ne, ok := e.(net.Error); ok &amp;&amp; ne.Temporary() {
+                <span class="hljs-keyword">if</span> tempDelay == <span class="hljs-number">0</span> {
+                    tempDelay = <span class="hljs-number">5</span> * time.Millisecond
+                } <span class="hljs-keyword">else</span> {
+                    tempDelay *= <span class="hljs-number">2</span>
+                }
+                <span class="hljs-keyword">if</span> max := <span class="hljs-number">1</span> * time.Second; tempDelay &gt; max {
+                    tempDelay = max
+                }
+                srv.logf(<span class="hljs-string">&quot;http: Accept error: %v; retrying in %v&quot;</span>, e, tempDelay)
+                time.Sleep(tempDelay)
+                <span class="hljs-keyword">continue</span>
+            }
+            <span class="hljs-keyword">return</span> e
+        }
+        tempDelay = <span class="hljs-number">0</span>
+        c := srv.newConn(rw)
+        c.setState(c.rwc, StateNew) <span class="hljs-comment">// before Serve can return</span>
+        <span class="hljs-keyword">go</span> c.serve(ctx)
+    }
+}</code></pre>
+<blockquote><p>&#x5927;&#x6982;&#x610F;&#x601D;&#xFF1A;&#x5224;&#x65AD;&#x662F;&#x5426;&#x6709;&#x8BF7;&#x6C42;&#xFF0C;&#x5982;&#x679C;&#x6709;&#xFF0C;&#x5219;&#x8FD0;&#x884C;&#x5230; go c.serve(ctx)&#xFF0C;&#x4ECE;&#x800C;&#x4EA7;&#x751F;&#x4E00;&#x4E2A;&#x65B0;&#x7684;goroutine
+&#x6CA1;&#x6709;&#x7684;&#x8BDD;&#x5219; time.Sleep(tempDelay)&#xFF0C;sleep&#x7684;&#x65F6;&#x95F4;&#x4E3A;<code>tempDelay = 5 * time.Millisecond</code>&#x6216;&#x8005;<code>tempDelay *= 2</code></p><pre><code class="lang-go"><span class="hljs-keyword">package</span> time
+<span class="hljs-keyword">const</span> (
+    Nanosecond  Duration = <span class="hljs-number">1</span>
+    Microsecond          = <span class="hljs-number">1000</span> * Nanosecond
+    Millisecond          = <span class="hljs-number">1000</span> * Microsecond
+    Second               = <span class="hljs-number">1000</span> * Millisecond
+    Minute               = <span class="hljs-number">60</span> * Second
+    Hour                 = <span class="hljs-number">60</span> * Minute
+)</code></pre>
+</blockquote>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="go_example5.html" class="navigation navigation-prev " aria-label="Previous page: go协程通讯">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="go_example7.html" class="navigation navigation-next " aria-label="Next page: go结构体，接口设计">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"go协程的应用 - net","level":"1.7","depth":1,"next":{"title":"go结构体，接口设计","level":"1.8","depth":1,"path":"go_example7.md","ref":"go_example7.md","articles":[]},"previous":{"title":"go协程通讯","level":"1.6","depth":1,"path":"go_example5.md","ref":"go_example5.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"go_example6.md","mtime":"2017-02-22T15:44:18.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2017-02-22T14:43:42.276Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
