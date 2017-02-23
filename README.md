@@ -9,3 +9,9 @@
 * [go协程的应用 - net](go_example6.md)
 * [go结构体，接口设计](go_example7.md)
 * [抛砖引玉](go_example8.md)
+
+# 项目运行
+
+- 安装gitbook 
+- 在根目录下运行 `gitbook serve`,此时监听了本地4000端口
+- 浏览器中打开即可
